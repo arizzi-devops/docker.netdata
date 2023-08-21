@@ -1,19 +1,11 @@
 version: '3'
 services:
-  caddy:
-    image: caddy:2
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./data/Caddyfile:/etc/caddy/Caddyfile
-      - ./data/caddy_data:/data
-      - ./data/caddy_config:/config
   netdata:
     image: netdata/netdata
+    ports:
+      - 19999:19999
     container_name: netdata
-    hostname: 192.168.127.132.nip.io # set to fqdn of host
-    restart: always
+    restart: unless-stopped
     pid: host
     cap_add:
       - SYS_PTRACE
